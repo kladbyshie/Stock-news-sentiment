@@ -1,0 +1,23 @@
+{%extends "heading.html"%}
+{%block content%}
+<body>
+    {% if message %}
+    <p class="message">{{ message | safe }}</p>
+    {% endif %}
+    <p>Note: This utility takes a while to load.</p>
+    <div class="formwrapper">
+        <form method="POST" action="{{ url_for('main')}}">
+            {{form.csrf_token}}
+            {{form.stock.label}}
+            {{form.stock}}
+            {{form.submit}}
+        </form>
+    </div>
+    <div class="plotlygraph">
+        {% if htmlcode %}
+            <p>The sentiment value is the 'normalized, weighted composite score' of the sentiment expressed in the article, wheres -1 is most extreme negative, and 1 is most extreme positive. The utility sources the news from Yahoo Finance, and uses a combination of Selenium, Newspaper, and NLTK libraries to select, download, parse, and analyze the articles. Plotly is used for visualization.</p>
+            {{ htmlcode | safe }}
+        {% endif %}
+    </div>
+</body>
+{%endblock%}
